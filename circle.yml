@@ -1,0 +1,21 @@
+general:
+  branches:
+    only:
+      - master
+
+machine:
+  timezone:
+    America/Los_Angeles
+  golang:
+    version:
+      1.4
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - go get github.com/codegangsta/cli github.com/jhoonb/archivex github.com/nlopes/slack github.com/nlopes/slack
+      - go run sort.go main.go -t=$SLACKAPIKEY general infrastructure books news programming random tech-events design music
+      - cp slackdump.zip `date +%d%b%Y`.zip
+      - mv `date +%d%b%Y`.zip backup/`date +%d%b%Y`.zip
+      - turbolift -u $RAXUSER -a $RAXAPIKEY --os-rax-auth $RAXREGION upload -s $HOME/$CIRCLE_PROJECT_REPONAME/backup -c $CONTAINER
