@@ -5,7 +5,7 @@ general:
 
 machine:
   timezone:
-    America/Los_Angeles
+    America/New_York
   golang:
     version:
       1.4
