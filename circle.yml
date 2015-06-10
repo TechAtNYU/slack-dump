@@ -6,9 +6,6 @@ general:
 machine:
   timezone:
     America/New_York
-  golang:
-    version:
-      1.4
 
 deployment:
   production:
