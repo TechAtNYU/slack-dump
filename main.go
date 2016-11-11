@@ -127,7 +127,7 @@ func dumpRooms(api *slack.Client, dir string, rooms []string) {
 			channel.LastRead = group.LastRead
 			channel.Latest = group.Latest
 			channel.Members = group.Members
-			channel.NumMembers = group.NumMembers
+			//channel.NumMembers = group.NumMembers
 			channel.Purpose = group.Purpose
 			channel.Topic = group.Topic
 			channel.UnreadCount = group.UnreadCount
@@ -247,7 +247,12 @@ func fetchGroupHistory(api *slack.Client, ID string) []slack.Message {
 	history, err := api.GetGroupHistory(ID, historyParams)
 	check(err)
 	messages := history.Messages
-	latest := messages[len(messages)-1].Timestamp
+
+	var latest string
+	if len(messages) > 0 {
+			latest = messages[len(messages)-1].Timestamp
+	}
+
 	for {
 		if history.HasMore != true {
 			break
@@ -275,7 +280,12 @@ func fetchChannelHistory(api *slack.Client, ID string) []slack.Message {
 	history, err := api.GetChannelHistory(ID, historyParams)
 	check(err)
 	messages := history.Messages
-	latest := messages[len(messages)-1].Timestamp
+
+	var latest string
+	if len(messages) > 0 {
+			latest = messages[len(messages)-1].Timestamp
+	}
+
 	for {
 		if history.HasMore != true {
 			break
