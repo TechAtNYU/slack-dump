@@ -13,6 +13,10 @@ dependencies:
   override:
     - go get github.com/codegangsta/cli github.com/jhoonb/archivex github.com/nlopes/slack github.com/nlopes/slack
     
+test:
+  override:
+    - go build -v
+    
 deployment:
   production:
     branch: master
