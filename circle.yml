@@ -6,12 +6,16 @@ general:
 machine:
   timezone:
     America/New_York
-
+    
+dependencies:
+  override:
+    - go get github.com/codegangsta/cli github.com/jhoonb/archivex github.com/nlopes/slack github.com/nlopes/slack
+    
 deployment:
   production:
     branch: master
     commands:
-      - ./slack-dump -t=$SLACKAPIKEY
+      - go run sort.go main.go -t=$SLACKAPIKEY
       - cp slackdump.zip `date +%d%b%Y`.zip
       - mv `date +%d%b%Y`.zip backup/`date +%d%b%Y`.zip
       - turbolift -u $RAXUSER -a $RAXAPIKEY --os-rax-auth $RAXREGION upload -s $HOME/$CIRCLE_PROJECT_REPONAME/backup -c $CONTAINER
