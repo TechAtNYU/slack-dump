@@ -6,6 +6,8 @@ general:
 machine:
   timezone:
     America/New_York
+  environment:
+    GOPATH: "${HOME}/${CIRCLE_PROJECT_REPONAME}"
     
 dependencies:
   override:
